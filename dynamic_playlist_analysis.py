@@ -111,16 +111,13 @@ def get_recommendation(playlist_data_str):
                 model="o1-preview",
                 messages=[
                     {
-                        "role": "system",
-                        "content": "You are an assistant helping to analyze musical taste based on playlist data."
-                    },
-                    {
                         "role": "user",
                         "content": (
                             f"Analyze the following playlist data and recommend one new song. "
-                            "Check thoroughly to ensure that the recommended song is not present in this playlist. "
-                            "It must be a new song. The response should only contain the song name and album in the format 'Song Name - Album Name'.\n\n"
-                            f"{playlist_data_str}")
+                            "Ensure the recommended song is not already present in this playlist. "
+                            "Provide the response in the format 'Song Name - Album Name'.\n\n"
+                            f"{playlist_data_str}"
+                        )
                     }
                 ]
             )
