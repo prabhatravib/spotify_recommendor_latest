@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="/static/thumbnail.png">
     <style>
         body {
-            background: url('/static/Designer.jpeg') no-repeat center center fixed;
+            background: url('/static/Designer-modified.jpg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             margin: 0;
@@ -40,31 +40,16 @@
         .btn-custom:hover {
             background-color: #14833B;
         }
-        input[type="url"] {
-            width: 100%;
-            max-width: 400px;
-            padding: 10px;
-            margin-top: 15px;
-            border-radius: 30px;
-            border: none;
-            outline: none;
-            font-size: 14px;
-        }
-        label {
-            margin-top: 20px;
-            display: block;
-            font-weight: bold;
-        }
 
-        /* Dot Overlay */
+        /* Dot Styles */
         .dot {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: #ffcc00;
             opacity: 0;
-            animation: lightUp 2s infinite;
+            animation: lightUp 5s infinite;
         }
         @keyframes lightUp {
             0% {
@@ -77,67 +62,75 @@
                 opacity: 0;
             }
         }
-
-        /* Dot positions and delays */
-        .dot-1 { top: 83.0%; left: 12.2%; animation-delay: 0.2s; }
-        .dot-2 { top: 73.2%; left: 19.5%; animation-delay: 0.4s; }
-        .dot-3 { top: 63.5%; left: 29.3%; animation-delay: 0.6s; }
-        .dot-4 { top: 53.7%; left: 41.5%; animation-delay: 0.8s; }
-        .dot-5 { top: 58.6%; left: 58.6%; animation-delay: 1.0s; }
-        .dot-6 { top: 70.8%; left: 73.2%; animation-delay: 1.2s; }
-        .dot-7 { top: 80.6%; left: 87.9%; animation-delay: 1.4s; }
     </style>
 </head>
 <body>
     <div class="main-container">
-        <!-- Heading -->
         <h1>Song Recommender</h1>
-        <p>Get AI powered music recommendations, tailored to your taste!</p>
-        
-        <!-- Loaded Playlist Display -->
-        {% if playlist_link %}
-            <p><strong>Loaded Playlist:</strong> {{ playlist_link }}</p>
-        {% endif %}
-
-        <!-- Submit Playlist Form -->
-        <form action="/submit_playlist" method="POST">
-            <label for="playlist_url">Enter Spotify Playlist Link:</label>
-            <input
-                type="url"
-                id="playlist_url"
-                name="playlist_url"
-                placeholder="e.g., https://open.spotify.com/playlist/..."
-                value="{{ playlist_link if playlist_link else '' }}"
-                required
-            />
-            <button type="submit" class="btn btn-custom" style="margin-top: 15px;">Submit Playlist</button>
-        </form>
-
-        <!-- Get Recommendation Button -->
-        <form action="/get_recommendation" method="POST" style="margin-top: 20px;">
-            <button type="submit" class="btn btn-custom">Get Recommendation</button>
-        </form>
-
-        <!-- Success and Error Messages -->
-        {% if success %}
-            <div class="alert alert-success" role="alert" style="margin-top: 20px;">
-                {{ success }}
-            </div>
-        {% endif %}
-        {% if error %}
-            <div class="alert alert-danger" role="alert" style="margin-top: 20px;">
-                {{ error }}
-            </div>
-        {% endif %}
+        <p>Enjoy AI-powered music recommendations tailored to your taste!</p>
     </div>
 
     <!-- Dots for Sequential Lighting -->
-    <div class="dot dot-1"></div>
-    <div class="dot dot-2"></div>
-    <div class="dot dot-3"></div>
-    <div class="dot dot-4"></div>
-    <div class="dot dot-5"></div>
-    <div class="dot dot-6"></div>
-    <div class="dot dot-7"></div>
+    <script>
+        const body = document.querySelector('body');
+
+        const dots = [
+            { top: 5.7, left: 22.4 },
+            { top: 6.8, left: 23.4 },
+            { top: 8.1, left: 33.1 },
+            { top: 8.5, left: 30.9 },
+            { top: 8.7, left: 11.9 },
+            { top: 10.9, left: 18.5 },
+            { top: 11.7, left: 19.9 },
+            { top: 12.0, left: 35.0 },
+            { top: 12.5, left: 8.3 },
+            { top: 13.2, left: 10.0 },
+            { top: 13.3, left: 34.4 },
+            { top: 38.2, left: 19.9 },
+            { top: 14.4, left: 32.9 },
+            { top: 15.8, left: 10.2 },
+            { top: 16.1, left: 14.6 },
+            { top: 16.4, left: 25.3 },
+            { top: 17.0, left: 17.8 },
+            { top: 18.0, left: 21.2 },
+            { top: 18.4, left: 8.8 },
+            { top: 18.5, left: 13.1 },
+            { top: 19.0, left: 36.4 },
+            { top: 20.4, left: 32.0 },
+            { top: 21.8, left: 35.5 },
+            { top: 24.7, left: 37.3 },
+            { top: 27.8, left: 42.5 },
+            { top: 30.1, left: 40.7 },
+            { top: 32.4, left: 47.1 },
+            { top: 35.5, left: 50.3 },
+            { top: 37.5, left: 42.8 },
+            { top: 39.6, left: 38.4 },
+            { top: 41.7, left: 48.9 },
+            { top: 43.7, left: 35.8 },
+            { top: 46.9, left: 40.2 },
+            { top: 50.0, left: 36.5 },
+            { top: 52.1, left: 47.4 },
+            { top: 54.2, left: 49.9 },
+            { top: 56.3, left: 55.1 },
+            { top: 60.1, left: 52.5 },
+            { top: 64.2, left: 65.0 },
+            { top: 66.4, left: 70.1 },
+            { top: 70.5, left: 73.0 },
+            { top: 73.2, left: 80.1 },
+            { top: 78.2, left: 82.5 },
+            { top: 82.4, left: 85.0 },
+            { top: 87.3, left: 88.5 }
+            // Add remaining dots from `normalized_cluster_centers`
+        ];
+
+        dots.forEach((dot, index) => {
+            const div = document.createElement('div');
+            div.classList.add('dot');
+            div.style.top = `${dot.top}%`;
+            div.style.left = `${dot.left}%`;
+            div.style.animationDelay = `${index * 0.02}s`;
+            body.appendChild(div);
+        });
+    </script>
 </body>
 </html>
