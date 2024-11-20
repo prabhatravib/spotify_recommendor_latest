@@ -46,7 +46,6 @@ def fetch_playlist_tracks_with_features(playlist_id):
                     'name': track['name'],
                     'artist': ', '.join([artist['name'] for artist in track['artists']]),
                     'album': track['album']['name'],
-                    'popularity': track['popularity'],
                     'duration_ms': track['duration_ms']
                 }
                 tracks.append(track_data)
