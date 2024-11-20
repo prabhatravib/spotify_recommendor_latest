@@ -15,7 +15,7 @@ client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Set up OpenAI API key
-openai.api_key = OPENAI_API_KEY
+OpenAI.api_key = OPENAI_API_KEY
 
 # Authenticate with Spotify
 auth_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
