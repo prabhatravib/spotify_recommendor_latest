@@ -1,136 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SongSuggest</title>
+    <title>Bindi-Like Animation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/static/thumbnail.png">
     <style>
         body {
-            background: url('/static/Designer-modified.jpg') no-repeat center center fixed;
+            background: url('/static/Designer.jpeg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
+            overflow: hidden;
             position: relative;
         }
-        .main-container {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-        }
-        .btn-custom {
-            background-color: #1DB954;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .btn-custom:hover {
-            background-color: #14833B;
-        }
-
-        /* Dot Styles */
         .dot {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
+            background-color: transparent;
             border-radius: 50%;
-            background: #ffcc00;
-            opacity: 0;
-            animation: lightUp 5s infinite;
+            transition: background-color 0.3s ease;
         }
-        @keyframes lightUp {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
+        .lit {
+            background-color: red;
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <h1>Song Recommender</h1>
-        <p>Enjoy AI-powered music recommendations tailored to your taste!</p>
-    </div>
-
-    <!-- Dots for Sequential Lighting -->
     <script>
-        const body = document.querySelector('body');
-
-        const dots = [
-            { top: 5.7, left: 22.4 },
-            { top: 6.8, left: 23.4 },
-            { top: 8.1, left: 33.1 },
-            { top: 8.5, left: 30.9 },
-            { top: 8.7, left: 11.9 },
-            { top: 10.9, left: 18.5 },
-            { top: 11.7, left: 19.9 },
-            { top: 12.0, left: 35.0 },
-            { top: 12.5, left: 8.3 },
-            { top: 13.2, left: 10.0 },
-            { top: 13.3, left: 34.4 },
-            { top: 38.2, left: 19.9 },
-            { top: 14.4, left: 32.9 },
-            { top: 15.8, left: 10.2 },
-            { top: 16.1, left: 14.6 },
-            { top: 16.4, left: 25.3 },
-            { top: 17.0, left: 17.8 },
-            { top: 18.0, left: 21.2 },
-            { top: 18.4, left: 8.8 },
-            { top: 18.5, left: 13.1 },
-            { top: 19.0, left: 36.4 },
-            { top: 20.4, left: 32.0 },
-            { top: 21.8, left: 35.5 },
-            { top: 24.7, left: 37.3 },
-            { top: 27.8, left: 42.5 },
-            { top: 30.1, left: 40.7 },
-            { top: 32.4, left: 47.1 },
-            { top: 35.5, left: 50.3 },
-            { top: 37.5, left: 42.8 },
-            { top: 39.6, left: 38.4 },
-            { top: 41.7, left: 48.9 },
-            { top: 43.7, left: 35.8 },
-            { top: 46.9, left: 40.2 },
-            { top: 50.0, left: 36.5 },
-            { top: 52.1, left: 47.4 },
-            { top: 54.2, left: 49.9 },
-            { top: 56.3, left: 55.1 },
-            { top: 60.1, left: 52.5 },
-            { top: 64.2, left: 65.0 },
-            { top: 66.4, left: 70.1 },
-            { top: 70.5, left: 73.0 },
-            { top: 73.2, left: 80.1 },
-            { top: 78.2, left: 82.5 },
-            { top: 82.4, left: 85.0 },
-            { top: 87.3, left: 88.5 }
-            // Add remaining dots from `normalized_cluster_centers`
+        // Full list of bindi-like dot coordinates
+        const bindiCoordinates = [
+            {x: 478, y: 825}, {x: 665, y: 459}, {x: 371, y: 464}, {x: 523, y: 469},
+            {x: 347, y: 485}, {x: 752, y: 487}, {x: 339, y: 494}, {x: 933, y: 497},
+            {x: 332, y: 508}, {x: 946, y: 513}, {x: 328, y: 520}, {x: 749, y: 521},
+            {x: 319, y: 533}, {x: 951, y: 533}, {x: 314, y: 547}, {x: 959, y: 548},
+            {x: 317, y: 562}, {x: 761, y: 563}, {x: 961, y: 563}, {x: 763, y: 583},
+            {x: 309, y: 588}, {x: 967, y: 588}, {x: 764, y: 604}, {x: 302, y: 609},
+            {x: 765, y: 623}, {x: 968, y: 623}, {x: 769, y: 643}, {x: 969, y: 658},
+            {x: 777, y: 661}, {x: 972, y: 682}, {x: 782, y: 685}, {x: 974, y: 708},
+            {x: 792, y: 709}, {x: 975, y: 734}, {x: 798, y: 733}, {x: 801, y: 757},
+            {x: 803, y: 781}, {x: 804, y: 805}, {x: 483, y: 813}, {x: 806, y: 829},
+            {x: 474, y: 833}, {x: 469, y: 857}, {x: 810, y: 853}, {x: 463, y: 881},
+            {x: 464, y: 904}, {x: 456, y: 926}, {x: 456, y: 947}, {x: 454, y: 969},
+            {x: 447, y: 992}, {x: 803, y: 992}, {x: 445, y: 1012}, {x: 802, y: 1012},
+            {x: 444, y: 1032}, {x: 801, y: 1032}, {x: 443, y: 1052}, {x: 800, y: 1052},
+            {x: 442, y: 1072}, {x: 799, y: 1072}, {x: 441, y: 1092}, {x: 798, y: 1092},
+            {x: 440, y: 1112}, {x: 797, y: 1112}, {x: 439, y: 1132}, {x: 796, y: 1132},
+            {x: 438, y: 1152}, {x: 795, y: 1152}, {x: 437, y: 1172}, {x: 794, y: 1172},
+            {x: 436, y: 1192}, {x: 793, y: 1192}, {x: 435, y: 1212}, {x: 792, y: 1212},
+            {x: 434, y: 1232}, {x: 791, y: 1232}, {x: 433, y: 1252}, {x: 790, y: 1252},
+            {x: 432, y: 1272}, {x: 789, y: 1272}, {x: 431, y: 1292}, {x: 788, y: 1292},
+            {x: 430, y: 1312}, {x: 787, y: 1312}, {x: 429, y: 1332}, {x: 786, y: 1332},
+            {x: 428, y: 1352}, {x: 785, y: 1352}, {x: 427, y: 1372}, {x: 784, y: 1372},
+            {x: 426, y: 1392}, {x: 783, y: 1392}, {x: 425, y: 1412}, {x: 782, y: 1412},
+            {x: 424, y: 1432}, {x: 781, y: 1432}, {x: 423, y: 1452}, {x: 780, y: 1452}
         ];
 
-        dots.forEach((dot, index) => {
-            const div = document.createElement('div');
-            div.classList.add('dot');
-            div.style.top = `${dot.top}%`;
-            div.style.left = `${dot.left}%`;
-            div.style.animationDelay = `${index * 0.02}s`;
-            body.appendChild(div);
+        // Create and append dots to the body
+        bindiCoordinates.forEach(coord => {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.style.left = `${coord.x}px`;
+            dot.style.top = `${coord.y}px`;
+            document.body.appendChild(dot);
         });
+
+        // Sequentially light up dots
+        let currentIndex = 0;
+        function lightUpDots() {
+            if (currentIndex < bindiCoordinates.length) {
+                const dots = document.getElementsByClassName('dot');
+                dots[currentIndex].classList.add('lit');
+                currentIndex++;
+                setTimeout(lightUpDots, 200); // Adjust timing for smooth animation
+            }
+        }
+        lightUpDots();
     </script>
 </body>
 </html>
