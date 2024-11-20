@@ -1,81 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bindi-Like Animation</title>
+    <title>SongSuggest</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/thumbnail.png"> <!-- Favicon added -->
     <style>
         body {
             background: url('/static/Designer.jpeg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             margin: 0;
-            overflow: hidden;
-            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
         }
-        .dot {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: transparent;
-            border-radius: 50%;
+        .main-container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+        }
+        .btn-custom {
+            background-color: #1DB954;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        .lit {
-            background-color: red;
+        .btn-custom:hover {
+            background-color: #14833B;
+        }
+        input[type="url"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+        label {
+            margin-top: 20px;
+            display: block;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <script>
-        // Full list of bindi-like dot coordinates
-        const bindiCoordinates = [
-            {x: 478, y: 825}, {x: 665, y: 459}, {x: 371, y: 464}, {x: 523, y: 469},
-            {x: 347, y: 485}, {x: 752, y: 487}, {x: 339, y: 494}, {x: 933, y: 497},
-            {x: 332, y: 508}, {x: 946, y: 513}, {x: 328, y: 520}, {x: 749, y: 521},
-            {x: 319, y: 533}, {x: 951, y: 533}, {x: 314, y: 547}, {x: 959, y: 548},
-            {x: 317, y: 562}, {x: 761, y: 563}, {x: 961, y: 563}, {x: 763, y: 583},
-            {x: 309, y: 588}, {x: 967, y: 588}, {x: 764, y: 604}, {x: 302, y: 609},
-            {x: 765, y: 623}, {x: 968, y: 623}, {x: 769, y: 643}, {x: 969, y: 658},
-            {x: 777, y: 661}, {x: 972, y: 682}, {x: 782, y: 685}, {x: 974, y: 708},
-            {x: 792, y: 709}, {x: 975, y: 734}, {x: 798, y: 733}, {x: 801, y: 757},
-            {x: 803, y: 781}, {x: 804, y: 805}, {x: 483, y: 813}, {x: 806, y: 829},
-            {x: 474, y: 833}, {x: 469, y: 857}, {x: 810, y: 853}, {x: 463, y: 881},
-            {x: 464, y: 904}, {x: 456, y: 926}, {x: 456, y: 947}, {x: 454, y: 969},
-            {x: 447, y: 992}, {x: 803, y: 992}, {x: 445, y: 1012}, {x: 802, y: 1012},
-            {x: 444, y: 1032}, {x: 801, y: 1032}, {x: 443, y: 1052}, {x: 800, y: 1052},
-            {x: 442, y: 1072}, {x: 799, y: 1072}, {x: 441, y: 1092}, {x: 798, y: 1092},
-            {x: 440, y: 1112}, {x: 797, y: 1112}, {x: 439, y: 1132}, {x: 796, y: 1132},
-            {x: 438, y: 1152}, {x: 795, y: 1152}, {x: 437, y: 1172}, {x: 794, y: 1172},
-            {x: 436, y: 1192}, {x: 793, y: 1192}, {x: 435, y: 1212}, {x: 792, y: 1212},
-            {x: 434, y: 1232}, {x: 791, y: 1232}, {x: 433, y: 1252}, {x: 790, y: 1252},
-            {x: 432, y: 1272}, {x: 789, y: 1272}, {x: 431, y: 1292}, {x: 788, y: 1292},
-            {x: 430, y: 1312}, {x: 787, y: 1312}, {x: 429, y: 1332}, {x: 786, y: 1332},
-            {x: 428, y: 1352}, {x: 785, y: 1352}, {x: 427, y: 1372}, {x: 784, y: 1372},
-            {x: 426, y: 1392}, {x: 783, y: 1392}, {x: 425, y: 1412}, {x: 782, y: 1412},
-            {x: 424, y: 1432}, {x: 781, y: 1432}, {x: 423, y: 1452}, {x: 780, y: 1452}
-        ];
+    <div class="main-container">
+        <!-- Heading -->
+        <h1>Song Recommender</h1>
+        <p>Get AI powered music recommendations, tailored to your taste!</p>
+        
+        <!-- Loaded Playlist Display -->
+        {% if playlist_link %}
+            <p><strong>Loaded Playlist:</strong> {{ playlist_link }}</p>
+        {% endif %}
 
-        // Create and append dots to the body
-        bindiCoordinates.forEach(coord => {
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            dot.style.left = `${coord.x}px`;
-            dot.style.top = `${coord.y}px`;
-            document.body.appendChild(dot);
-        });
+        <!-- Submit Playlist Form -->
+        <form action="/submit_playlist" method="POST">
+            <label for="playlist_url">Enter Spotify Playlist Link:</label>
+            <input
+                type="url"
+                id="playlist_url"
+                name="playlist_url"
+                placeholder="e.g., https://open.spotify.com/playlist/..."
+                value="{{ playlist_link if playlist_link else '' }}"
+                required
+            />
+            <button type="submit" class="btn btn-custom" style="margin-top: 15px;">Submit Playlist</button>
+        </form>
 
-        // Sequentially light up dots
-        let currentIndex = 0;
-        function lightUpDots() {
-            if (currentIndex < bindiCoordinates.length) {
-                const dots = document.getElementsByClassName('dot');
-                dots[currentIndex].classList.add('lit');
-                currentIndex++;
-                setTimeout(lightUpDots, 200); // Adjust timing for smooth animation
-            }
-        }
-        lightUpDots();
-    </script>
+        <!-- Get Recommendation Button -->
+        <form action="/get_recommendation" method="POST" style="margin-top: 20px;">
+            <button type="submit" class="btn btn-custom">Get Recommendation</button>
+        </form>
+
+        <!-- Success and Error Messages -->
+        {% if success %}
+            <div class="alert alert-success" role="alert" style="margin-top: 20px;">
+                {{ success }}
+            </div>
+        {% endif %}
+        {% if error %}
+            <div class="alert alert-danger" role="alert" style="margin-top: 20px;">
+                {{ error }}
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>
