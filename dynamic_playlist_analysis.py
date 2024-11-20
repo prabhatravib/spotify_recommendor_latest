@@ -124,7 +124,7 @@ def get_recommendation(playlist_data_str):
                     }
                 ]
             )
-            recommendation = response['choices'][0]['message']['content'].strip()
+            recommendation = response.choices[0].message.content.strip()
             return recommendation
         except Exception as e:
             current_time = datetime.datetime.now()
