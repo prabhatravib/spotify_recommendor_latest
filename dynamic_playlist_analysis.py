@@ -106,7 +106,7 @@ def get_recommendation(playlist_data_str):
     while True:
         try:
             response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model="o1-preview",
                 messages=[
                     {
                         "role": "system",
