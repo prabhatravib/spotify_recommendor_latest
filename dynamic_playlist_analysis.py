@@ -2,10 +2,12 @@ import pandas as pd
 import re
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-import openai
 import time
 import datetime
 import os
+
+from openai import OpenAI
+client = OpenAI()
 
 # Set up your Spotify API credentials
 client_id = os.getenv("SPOTIFY_CLIENT_ID")
@@ -105,8 +107,8 @@ def get_recommendation(playlist_data_str):
 
     while True:
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-4",
+            response = client.chat.completions.create(
+                model="o1-preview",
                 messages=[
                     {
                         "role": "system",
