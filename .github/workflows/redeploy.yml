@@ -2,7 +2,6 @@ name: Redeploy Render Website
 
 on:
   schedule:
-    # Run every 30 minutes
     - cron: "*/5 * * * *"
 
 jobs:
@@ -10,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Trigger Render redeployment
       - name: Trigger redeployment on Render
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
           echo "Triggering redeployment..."
           curl -X POST "$RENDER_DEPLOY_HOOK"
 
-      # Optional: Add logging or notifications
-      - name: Confirm deployment triggered
-        run: echo "Redeployment triggered at $(date)"
+      - name: Confirm redeployment
+        run: echo "Redeployment triggered successfully at $(date)"
