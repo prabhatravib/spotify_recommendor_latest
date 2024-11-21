@@ -3,7 +3,7 @@ name: Redeploy Render Website
 on:
   schedule:
     # Run every 30 minutes
-    - cron: "*/30 * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   redeploy:
