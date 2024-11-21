@@ -1,26 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Information -->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SongSuggest</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/static/thumbnail.png"> <!-- Favicon added -->
+    <link rel="icon" type="image/png" href="/static/thumbnail.png">
+
+    <!-- CSS Styling -->
     <style>
+        /* Reset body margin and padding */
         body {
-            background: url('/static/Designer.jpeg') no-repeat center center fixed;
-            background-size: cover;
-            min-height: 100vh;
             margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 0;
             color: white;
             text-align: center;
+            font-family: Arial, sans-serif;
         }
+
+        /* Background Image Container */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1; /* Place it behind other content */
+            background-color: #000; /* Fallback background color */
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures the entire image is visible */
+        }
+
+        /* Main Content Container */
         .main-container {
+            position: relative;
+            z-index: 1; /* Place it above the background image */
             background: rgba(0, 0, 0, 0.6);
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
             max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
         }
+
+        /* Centering the main container */
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Custom Button Styling */
         .btn-custom {
             background-color: #1DB954;
             border: none;
@@ -32,9 +72,12 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         .btn-custom:hover {
             background-color: #14833B;
         }
+
+        /* Input Field Styling */
         input[type="url"] {
             width: 100%;
             max-width: 400px;
@@ -45,56 +88,82 @@
             outline: none;
             font-size: 14px;
         }
+
+        /* Label Styling */
         label {
             margin-top: 20px;
             display: block;
             font-weight: bold;
         }
+
+        /* Success and Error Messages */
+        .alert {
+            margin-top: 20px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .main-container {
+                padding: 20px;
+                margin: 20px;
+            }
+            input[type="url"] {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Heading -->
-        <h1>Song Recommender</h1>
-        <p>Get AI powered music recommendations, tailored to your taste!</p>
-        <p>Input playlists like the one below </p>
-        <p>https://open.spotify.com/playlist/0roKegp5yFgVEpDd9bZfe3</p>
-        
-        <!-- Loaded Playlist Display -->
-        {% if playlist_link %}
-            <p><strong>Loaded Playlist:</strong> {{ playlist_link }}</p>
-        {% endif %}
+    <!-- Background Image -->
+    <div class="background-container">
+        <img src="/static/Designer.jpeg" alt="Background Image" class="background-image">
+    </div>
 
-        <!-- Submit Playlist Form -->
-        <form action="/submit_playlist" method="POST">
-            <label for="playlist_url">Enter Spotify Playlist Link:</label>
-            <input
-                type="url"
-                id="playlist_url"
-                name="playlist_url"
-                placeholder="e.g., https://open.spotify.com/playlist/..."
-                value="{{ playlist_link if playlist_link else '' }}"
-                required
-            />
-            <button type="submit" class="btn btn-custom" style="margin-top: 15px;">Submit Playlist</button>
-        </form>
-
-        <!-- Get Recommendation Button -->
-        <form action="/get_recommendation" method="POST" style="margin-top: 20px;">
-            <button type="submit" class="btn btn-custom">Get Recommendation</button>
-        </form>
-
-        <!-- Success and Error Messages -->
-        {% if success %}
-            <div class="alert alert-success" role="alert" style="margin-top: 20px;">
-                {{ success }}
-            </div>
-        {% endif %}
-        {% if error %}
-            <div class="alert alert-danger" role="alert" style="margin-top: 20px;">
-                {{ error }}
-            </div>
-        {% endif %}
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <div class="main-container">
+            <!-- Heading -->
+            <h1>Song Recommender</h1>
+            <p>Get AI-powered music recommendations, tailored to your taste!</p>
+            <p>Input playlists like the one below:</p>
+            <p>https://open.spotify.com/playlist/0roKegp5yFgVEpDd9bZfe3</p>
+            
+            <!-- Loaded Playlist Display -->
+            {% if playlist_link %}
+                <p><strong>Loaded Playlist:</strong> {{ playlist_link }}</p>
+            {% endif %}
+    
+            <!-- Submit Playlist Form -->
+            <form action="/submit_playlist" method="POST">
+                <label for="playlist_url">Enter Spotify Playlist Link:</label>
+                <input
+                    type="url"
+                    id="playlist_url"
+                    name="playlist_url"
+                    placeholder="e.g., https://open.spotify.com/playlist/..."
+                    value="{{ playlist_link if playlist_link else '' }}"
+                    required
+                />
+                <button type="submit" class="btn btn-custom" style="margin-top: 15px;">Submit Playlist</button>
+            </form>
+    
+            <!-- Get Recommendation Button -->
+            <form action="/get_recommendation" method="POST" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-custom">Get Recommendation</button>
+            </form>
+    
+            <!-- Success and Error Messages -->
+            {% if success %}
+                <div class="alert alert-success" role="alert">
+                    {{ success }}
+                </div>
+            {% endif %}
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
