@@ -1,0 +1,21 @@
+name: Redeploy Render Website
+
+on:
+  schedule:
+    # Run every 30 minutes
+    - cron: "*/30 * * * *"
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Trigger Render redeployment
+      - name: Trigger redeployment on Render
+        run: |
+          echo "Triggering redeployment..."
+          curl -X POST "$RENDER_DEPLOY_HOOK"
+
+      # Optional: Add logging or notifications
+      - name: Confirm deployment triggered
+        run: echo "Redeployment triggered at $(date)"
