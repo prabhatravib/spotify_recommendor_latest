@@ -2,98 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Glowing Pattern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowing Bindis</title>
     <style>
         body {
             margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: #000;
+            height: 100vh;
+            background-color: #000;
         }
-        
-        .pattern-container {
+
+        .container {
             position: relative;
         }
-        
-        .pattern-image {
+
+        img {
             display: block;
             max-width: 100%;
+            height: auto;
         }
-        
-        .glow-dot {
+
+        .bindi {
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            background-color: #ffd700;
-            animation: glow 2s ease-in-out infinite;
+            background-color: rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.5);
+            animation: glow 1.5s infinite alternate;
         }
-        
+
         @keyframes glow {
-            0%, 100% {
-                transform: scale(0.8);
-                opacity: 0.3;
-                box-shadow: 0 0 5px #ffd700;
+            0% {
+                box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.7);
             }
-            50% {
-                transform: scale(1.2);
-                opacity: 1;
-                box-shadow: 
-                    0 0 10px #ffd700,
-                    0 0 20px #ffd700,
-                    0 0 30px #ff6b6b;
+            100% {
+                box-shadow: 0 0 20px 8px rgba(255, 0, 0, 1);
             }
         }
+
+        /* Bindi Positions */
+        .bindi-1 { top: 341px; left: 403px; }
+        .bindi-2 { top: 339px; left: 423px; }
+        .bindi-3 { top: 304px; left: 1594px; }
+        .bindi-4 { top: 813px; left: 1438px; }
+        .bindi-5 { top: 271px; left: 451px; }
     </style>
 </head>
 <body>
-    <div class="pattern-container">
-        <img src="/api/placeholder/800/200" alt="Pattern" class="pattern-image">
-        <script>
-            // Predefined coordinates for the bindis in your pattern
-            const coordinates = [
-                // Bottom curve
-                {x: 180, y: 160}, {x: 200, y: 165}, {x: 220, y: 168},
-                {x: 240, y: 170}, {x: 260, y: 171}, {x: 280, y: 172},
-                {x: 300, y: 172}, {x: 320, y: 172}, {x: 340, y: 171},
-                {x: 360, y: 170}, {x: 380, y: 168}, {x: 400, y: 165},
-                {x: 420, y: 160},
-                
-                // Upper curve
-                {x: 200, y: 140}, {x: 220, y: 145}, {x: 240, y: 148},
-                {x: 260, y: 150}, {x: 280, y: 151}, {x: 300, y: 152},
-                {x: 320, y: 152}, {x: 340, y: 151}, {x: 360, y: 150},
-                {x: 380, y: 148}, {x: 400, y: 145}, {x: 420, y: 140},
-                
-                // Left decorative elements
-                {x: 150, y: 130}, {x: 130, y: 120}, {x: 110, y: 110},
-                {x: 160, y: 150}, {x: 140, y: 140}, {x: 120, y: 130},
-                
-                // Right decorative elements
-                {x: 450, y: 130}, {x: 470, y: 120}, {x: 490, y: 110},
-                {x: 440, y: 150}, {x: 460, y: 140}, {x: 480, y: 130}
-            ];
-            
-            window.onload = function() {
-                const container = document.querySelector('.pattern-container');
-                const img = document.querySelector('.pattern-image');
-                
-                function createGlowingDots() {
-                    coordinates.forEach((coord, index) => {
-                        const dot = document.createElement('div');
-                        dot.className = 'glow-dot';
-                        dot.style.left = `${coord.x}px`;
-                        dot.style.top = `${coord.y}px`;
-                        dot.style.animationDelay = `${index * 0.1}s`;
-                        container.appendChild(dot);
-                    });
-                }
-                
-                img.onload = createGlowingDots;
-            };
-        </script>
+    <div class="container">
+        <img src="Designer.jpeg" alt="Decorative Image">
+        <div class="bindi bindi-1"></div>
+        <div class="bindi bindi-2"></div>
+        <div class="bindi bindi-3"></div>
+        <div class="bindi bindi-4"></div>
+        <div class="bindi bindi-5"></div>
     </div>
 </body>
 </html>
