@@ -3,77 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glowing Bindis</title>
+    <title>SongSuggest with Glowing Bindis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Basic Styling */
         body {
             margin: 0;
             padding: 0;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            background-color: #000;
+        }
+        .background-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .main-container {
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .main-wrapper {
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #000;
-            position: relative;
         }
-
-        .container {
-            position: relative;
+        .btn-custom {
+            background-color: #1DB954;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-
-        img {
+        .btn-custom:hover {
+            background-color: #14833B;
+        }
+        input[type="url"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+        label {
+            margin-top: 20px;
             display: block;
-            max-width: 100%;
-            height: auto;
+            font-weight: bold;
         }
-
-        /* Bindi Glowing Effect */
+        .alert {
+            margin-top: 20px;
+        }
         .bindi {
             position: absolute;
-            width: 6px; /* Reduced size */
-            height: 6px; /* Reduced size */
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background-color: rgba(255, 0, 0, 0.8);
             box-shadow: 0 0 6px 2px rgba(255, 0, 0, 0.5);
             animation: glow 1.5s infinite alternate;
-            z-index: 1;
         }
-
         @keyframes glow {
-            0% {
-                box-shadow: 0 0 4px 1px rgba(255, 0, 0, 0.6);
-            }
-            100% {
-                box-shadow: 0 0 8px 3px rgba(255, 0, 0, 1);
-            }
+            0% { box-shadow: 0 0 4px 1px rgba(255, 0, 0, 0.6); }
+            100% { box-shadow: 0 0 8px 3px rgba(255, 0, 0, 1); }
         }
-
         /* Bindi Positions */
-        .bindi-1 { top: 122px; left: 440px; }
-        .bindi-2 { top: 397px; left: 595px; }
-        .bindi-3 { top: 383px; left: 1472px; }
-        .bindi-4 { top: 147px; left: 1595px; }
-        .bindi-5 { top: 405px; left: 1071px; }
-        .bindi-6 { top: 150px; left: 450px; }
-        .bindi-7 { top: 370px; left: 580px; }
-        .bindi-8 { top: 400px; left: 1430px; }
-        .bindi-9 { top: 160px; left: 1560px; }
-        .bindi-10 { top: 420px; left: 1040px; }
-        .bindi-11 { top: 200px; left: 480px; }
-        .bindi-12 { top: 350px; left: 610px; }
-        .bindi-13 { top: 410px; left: 1500px; }
-        .bindi-14 { top: 180px; left: 1530px; }
-        .bindi-15 { top: 430px; left: 1100px; }
-        .bindi-16 { top: 140px; left: 470px; }
-        .bindi-17 { top: 390px; left: 560px; }
-        .bindi-18 { top: 370px; left: 1490px; }
-        .bindi-19 { top: 170px; left: 1600px; }
-        .bindi-20 { top: 450px; left: 1080px; }
+        .bindi-1 { top: 430px; left: 200px; }
+        .bindi-2 { top: 520px; left: 585px; }
+        .bindi-3 { top: 310px; left: 330px; }
+        .bindi-4 { top: 405px; left: 350px; }
+        .bindi-5 { top: 415px; left: 290px; }
+        .bindi-6 { top: 282px; left: 450px; }
+        .bindi-7 { top: 355px; left: 590px; }
+        .bindi-8 { top: 245px; left: 425px; }
+        .bindi-9 { top: 375px; left: 670px; }
+        .bindi-10 { top: 385px; left: 470px; }
+        .bindi-11 { top: 350px; left: 90px; }
+        .bindi-12 { top: 520px; left: 405px; }
+        .bindi-13 { top: 340px; left: 600px; }
+        .bindi-14 { top: 520px; left: 315px; }
+        .bindi-15 { top: 520px; left: 615px; }
+        .bindi-16 { top: 315px; left: 430px; }
+        .bindi-17 { top: 265px; left: 305px; }
+        .bindi-18 { top: 450px; left: 80px; }
+        .bindi-19 { top: 310px; left: 410px; }
+        .bindi-20 { top: 290px; left: 155px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="Designer (1).jpeg" alt="Decorative Image">
+    <div class="background-container">
+        <img src="/static/Designer.jpeg" alt="Background Image" class="background-image">
         <div class="bindi bindi-1"></div>
         <div class="bindi bindi-2"></div>
         <div class="bindi bindi-3"></div>
@@ -94,6 +138,22 @@
         <div class="bindi bindi-18"></div>
         <div class="bindi bindi-19"></div>
         <div class="bindi bindi-20"></div>
+    </div>
+    <div class="main-wrapper">
+        <div class="main-container">
+            <h1>Song Recommender</h1>
+            <p>Get AI-powered music recommendations, tailored to your taste!</p>
+            <p>Input playlists like the one below:</p>
+            <p>https://open.spotify.com/playlist/0roKegp5yFgVEpDd9bZfe3</p>
+            <form action="/submit_playlist" method="POST">
+                <label for="playlist_url">Enter Spotify Playlist Link:</label>
+                <input type="url" id="playlist_url" name="playlist_url" placeholder="e.g., https://open.spotify.com/playlist/..." required>
+                <button type="submit" class="btn btn-custom" style="margin-top: 15px;">Submit Playlist</button>
+            </form>
+            <form action="/get_recommendation" method="POST" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-custom">Get Recommendation</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
