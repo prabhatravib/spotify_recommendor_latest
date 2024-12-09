@@ -2,7 +2,7 @@ name: Redeploy on Render
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Runs every 30 minutes
+    - cron: '*/300 * * * *'  # Runs every 30 minutes
 
 jobs:
   redeploy:
